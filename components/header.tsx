@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 import { UserCircle } from "lucide-react"
 import LoginModal from "@/components/login-modal"
+import SignUpModal from "@/components/signup-modal"
 import { useState } from "react"
 
 export default function Header() {
   const pathname = usePathname()
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false)
 
   return (
     <header className="border-b">
@@ -41,11 +43,9 @@ export default function Header() {
           <Button variant="outline" size="sm" className="hidden md:flex" onClick={() => setIsLoginModalOpen(true)}>
             Entrar
           </Button>
-          <Link href="/cadastro">
-            <Button size="sm" className="hidden md:flex">
-              Cadastrar ONG
-            </Button>
-          </Link>
+          <Button size="sm" className="hidden md:flex" onClick={() => setSignUpModalOpen(true)}>
+            Cadastrar
+          </Button>
           <Button variant="ghost" size="icon" className="md:hidden">
             <UserCircle className="h-5 w-5" />
             <span className="sr-only">Menu</span>
@@ -53,6 +53,7 @@ export default function Header() {
         </div>
       </div>
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)}/>
+      <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setSignUpModalOpen(false)}/>
     </header>
   )
 }

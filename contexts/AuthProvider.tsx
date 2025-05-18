@@ -11,7 +11,7 @@ const AuthContext = createContext({
   token: null,
 });
 
-export default function AuthProvider({ children }) {
+export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -52,7 +52,7 @@ export default function AuthProvider({ children }) {
       } else {
         throw new Error('No token received from server');
       }
-    } catch (error) {
+    } catch (error: any) {
       setError(error.message);
     } finally {
       setIsLoading(false);

@@ -25,15 +25,37 @@ const formSchema = z.object({
   }),
   senha: z.string().min(1, {
     message: "A senha é obrigatória.",
+  }), 
+  nome: z.string().min(1, {
+    message: "O nome é obrigatório.",
+  }),
+  cnpj: z.string().min(1, {
+    message: "O CNPJ é obrigatório.",
   }),
 })
 
-interface LoginModalProps {
+const formatCNPJ = (value: string) => {
+  const cnpj = value.replace(/\D/g, '');
+  
+  if (cnpj.length <= 2) {
+    return cnpj;
+  } else if (cnpj.length <= 5) {
+    return `${cnpj.slice(0, 2)}.${cnpj.slice(2)}`;
+  } else if (cnpj.length <= 8) {
+    return `${cnpj.slice(0, 2)}.${cnpj.slice(2, 5)}.${cnpj.slice(5)}`;
+  } else if (cnpj.length <= 12) {
+    return `${cnpj.slice(0, 2)}.${cnpj.slice(2, 5)}.${cnpj.slice(5, 8)}/${cnpj.slice(8)}`;
+  } else {
+    return `${cnpj.slice(0, 2)}.${cnpj.slice(2, 5)}.${cnpj.slice(5, 8)}/${cnpj.slice(8, 12)}-${cnpj.slice(12, 14)}`;
+  }
+};
+
+interface SignUpModalProps {
   isOpen: boolean
   onClose: () => void
 }
 
-export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -41,23 +63,13 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
     defaultValues: {
       email: "",
       senha: "",
+      nome: "",
+      cnpj: "",
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
-
-    // Simulando autenticação
-    setTimeout(() => {
-      console.log(values)
-      setIsSubmitting(false)
-      toast({
-        title: "Login realizado com sucesso!",
-        description: "Você será redirecionado para o painel.",
-      })
-      onClose()
-      form.reset()
-    }, 2000)
+    console.log(values)
   }
 
   return (
@@ -65,19 +77,56 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Entrar</DialogTitle>
-            <DialogDescription>Acesse sua conta para gerenciar sua ONG</DialogDescription>
+            <DialogTitle>Cadastrar</DialogTitle>
+            <DialogDescription>Cadastre sua ONG para gerenciar sua ONG</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+                control={form.control}
+                name="nome"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nome</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Digite seu nome" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email ou CNPJ</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input placeholder="contato@ong.org" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="cnpj"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>CNPJ</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="00.000.000/0000-00" 
+                        {...field}
+                        onChange={(e) => {
+                          const formatted = formatCNPJ(e.target.value);
+                          e.target.value = formatted;
+                          field.onChange(formatted);
+                        }}
+                        maxLength={18}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,8 +148,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
               />
 
               <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Entrando..." : "Entrar"}
+                <Button type="submit" className="w-full" disabled={isSubmitting || !form.formState.isValid}>
+                  {isSubmitting ? "Cadastrando..." : "Cadastrar"}
                 </Button>
               </DialogFooter>
             </form>
