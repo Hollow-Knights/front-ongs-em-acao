@@ -87,7 +87,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
                 name="nome"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nome</FormLabel>
+                    <FormLabel>Nome do representante</FormLabel>
                     <FormControl>
                       <Input placeholder="Digite seu nome" {...field} />
                     </FormControl>
