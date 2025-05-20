@@ -148,9 +148,11 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
               />
 
               <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
-                <Button type="submit" className="w-full" disabled={isSubmitting || !form.formState.isValid}>
-                  {isSubmitting ? "Cadastrando..." : "Cadastrar"}
-                </Button>
+                <Link href="/cadastro" onClick={onClose}>
+                  <Button className="w-full" disabled={isSubmitting || !form.formState.isValid}>
+                    {isSubmitting ? "Cadastrando..." : "Cadastrar"}
+                  </Button>
+                </Link>
               </DialogFooter>
             </form>
           </Form>

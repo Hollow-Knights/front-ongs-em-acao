@@ -1,7 +1,13 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Phone, Mail, Heart, Share2, ExternalLink } from "lucide-react"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { MapPin, Phone, Mail, Heart, Share2, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 const getONG = (id: string) => {
   return {
@@ -24,11 +30,11 @@ const getONG = (id: string) => {
       lat: -23.55052,
       lng: -46.633308,
     },
-  }
-}
+  };
+};
 
 export default function ONGPage({ params }: { params: { id: string } }) {
-  const ong = getONG(params?.id)
+  const ong = getONG(params?.id);
 
   return (
     <div className="container py-10">
@@ -40,7 +46,11 @@ export default function ONGPage({ params }: { params: { id: string } }) {
           </div>
 
           <div className="aspect-video overflow-hidden rounded-lg">
-            <img src={ong.imagem || "/placeholder.svg"} alt={ong.nome} className="w-full h-full object-cover" />
+            <img
+              src={ong.imagem || "/placeholder.svg"}
+              alt={ong.nome}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           <div className="space-y-4">
@@ -81,10 +91,11 @@ export default function ONGPage({ params }: { params: { id: string } }) {
             <h2 className="text-2xl font-semibold">Localização</h2>
             <div className="aspect-video overflow-hidden rounded-lg bg-muted flex items-center justify-center">
               <div className="text-center p-6">
-                <p className="text-muted-foreground mb-4">Mapa do Google seria carregado aqui</p>
-                <p className="text-xs text-muted-foreground">
-                  Coordenadas: {ong.coordenadas.lat}, {ong.coordenadas.lng}
-                </p>
+                <img
+                  src={`https://www.oficinadanet.com.br/imagens/post/22755/mapsss.jpg`}
+                  alt="Mapa da ONG"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -94,7 +105,9 @@ export default function ONGPage({ params }: { params: { id: string } }) {
           <Card>
             <CardHeader>
               <CardTitle>Como Ajudar</CardTitle>
-              <CardDescription>Existem várias formas de contribuir com o trabalho da {ong.nome}</CardDescription>
+              <CardDescription>
+                Existem várias formas de contribuir com o trabalho da {ong.nome}
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <h3 className="font-medium">Formas de Doação</h3>
@@ -117,7 +130,9 @@ export default function ONGPage({ params }: { params: { id: string } }) {
           <Card>
             <CardHeader>
               <CardTitle>Compartilhar</CardTitle>
-              <CardDescription>Ajude a divulgar o trabalho desta ONG</CardDescription>
+              <CardDescription>
+                Ajude a divulgar o trabalho desta ONG
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Button variant="outline" className="w-full">
@@ -148,5 +163,5 @@ export default function ONGPage({ params }: { params: { id: string } }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
