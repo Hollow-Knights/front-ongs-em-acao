@@ -17,6 +17,9 @@ export default function Home() {
                 Nossa plataforma facilita o cadastro e a descoberta de organizações não governamentais que trabalham em
                 áreas de risco, promovendo o impacto social e a colaboração.
               </p>
+              <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <a href="https://youtu.be/7Lk8ROh2tAI">Link do vídeo</a>
+              </p>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Link href="/cadastro">
                   <Button size="lg">Cadastrar ONG</Button>

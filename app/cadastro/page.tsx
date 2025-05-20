@@ -84,8 +84,8 @@ export default function CadastroPage() {
     <div className="container py-10">
       <Card className="max-w-3xl mx-auto">
         <CardHeader>
-          <CardTitle>Cadastro de ONG</CardTitle>
-          <CardDescription>Preencha os dados abaixo para cadastrar sua ONG na plataforma.</CardDescription>
+          <CardTitle>Complete o cadastro da sua ONG</CardTitle>
+          <CardDescription>Preencha os dados abaixo para completar o cadastro da sua ONG.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -96,9 +96,9 @@ export default function CadastroPage() {
                   name="representante"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome do Representante</FormLabel>
+                      <FormLabel>Nome da ONG</FormLabel>
                       <FormControl>
-                        <Input placeholder="Nome completo" {...field} />
+                        <Input placeholder="Nome da ONG" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
